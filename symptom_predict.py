@@ -96,19 +96,7 @@ if __name__ == '__main__':
 
 ##KNN
 def knn(X,y):
-
-    #80/ 20 split
-    X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=1,test_size=.2)
-
-    #feature Min-Max Scaling, if the features vary too much (they do) will mess up the model.
-    scaler = MinMaxScaler()
-    X_train_scaled = scaler.fit_transform(X_train)
-    #Make sure both training and test set are scaled
-    X_test_scaled = scaler.transform(X_test)
-    classifier= KNeighborsClassifier(n_neighbors = 5)
-    classifier.fit(X_train,y_train)
-    y_pred = classifier.predict(X_test)
-    result = cross_val_score(KNeighborsClassifier(n_neighbors = 15),X,y, cv=5)
+    result = cross_val_score(KNeighborsClassifier(n_neighbors = 5),X,y, cv=5)
     print(result)
 
 if __name__ == '__main__':
