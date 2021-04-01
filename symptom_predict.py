@@ -1,5 +1,6 @@
 # import required libraries
 import pandas as pd
+from sklearn import svm
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.feature_selection import SelectFromModel
 from sklearn.model_selection import cross_val_score, train_test_split
@@ -82,6 +83,16 @@ if __name__ == '__main__':
     print('accuracy scores of random forest after feature selection:')
     random_forest_feature_select(X_SUI,y_SUI)
 
+def SVR(X,y):
+    clf = svm.SVC(C=1, random_state=10)
+    scores = cross_val_score(clf, X, y, cv=5)
+    print(scores)
+
+
+
+if __name__ == '__main__':
+    print('accuracy scores of SVR:')
+    SVR(X_SUI,y_SUI)
 
 ##KNN Classification using accuracy score
 def knn(X,y):
