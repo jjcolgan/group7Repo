@@ -3,6 +3,8 @@ import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.feature_selection import SelectFromModel
 from sklearn.model_selection import cross_val_score, train_test_split
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.preprocessing import MinMaxScaler
 
 df = pd.read_csv('transposedCo-occurenceDataWithOutcomes.csv')
 features = df.columns.drop(['PatientID','outcome']).values
@@ -80,6 +82,23 @@ if __name__ == '__main__':
     print('accuracy scores of random forest after feature selection:')
     random_forest_feature_select(X_SUI,y_SUI)
 
+
+##KNN Classification using accuracy score
+def knn(X,y):
+
+    #75 / 25 train test split
+    X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=0)
+
+    #feature Min-Max Scaling, if the features vary too much (they do) will mess up the model.
+    scaler = MinMaxScaler()
+    X_train_scaled = scaler.fit_transform(X_train)
+    #Make sure both training and test set are scaled
+    X_test_scaled = scaler.transform(X_test)
+    result = cross_val_score(KNeighborsClassifier(n_neighbors = 15),X,y, cv=5)
+    print(result)
+if __name__ == '__main__':
+    print('accuracy scores of KNN:')
+    knn(X_UTI,y_UTI)
 
 
 
