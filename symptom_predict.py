@@ -40,7 +40,6 @@ def random_forest_before_selection(X,y):
 ''' feature selection uses test_train_split instead of cross validation, since cross val
     uses the test data in each fold of the cross-validation procedure which was also used 
     to choose the features and this is what biases the performance analysis.'''
-# https://chrisalbon.com/machine_learning/trees_and_forests/feature_selection_using_random_forest/
 
 def random_forest_feature_select(X,y):
     # Split the data into 20% test and 80% training
@@ -58,8 +57,8 @@ def random_forest_feature_select(X,y):
         print(i)
 
     # threshold = smallest of top 10 gini importances
-    top_5 = (sorted(feat_importance, key=lambda t: t[1], reverse=True)[:10])
-    thres = top_5[-1][1]
+    top_10 = (sorted(feat_importance, key=lambda t: t[1], reverse=True)[:10])
+    thres = top_10[-1][1]
 
     # select features with gini importance > threshold
     sel_feat = SelectFromModel(model, threshold=thres)
