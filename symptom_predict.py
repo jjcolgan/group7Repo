@@ -96,6 +96,25 @@ if __name__ == '__main__':
 
 ##KNN
 def knn(X,y):
+    # Grid search code for fiding optimal number of neighbors
+    #taken from: https://www.ritchieng.com/machine-learning-efficiently-search-tuning-param/
+    # instantiate model
+    knn = KNeighborsClassifier(n_neighbors=5)
+    k_range = list(range(1, 31))
+    # create a parameter grid: map the parameter names to the values that should be searched
+    # simply a python dictionary
+    # key: parameter name
+    # value: list of values that should be searched for that parameter
+    # single key-value pair for param_grid
+    param_grid = dict(n_neighbors=k_range)
+    # instantiate the grid
+    grid = GridSearchCV(knn, param_grid, cv=10, scoring='accuracy')
+    grid.fit(X, y)
+    n=0
+    #not the best way of doing this, extracting the value of the best params from the dict grid.best_params_
+    for key,value in grid.best_params_.items():
+        n=value
+
     result = cross_val_score(KNeighborsClassifier(n_neighbors = 5),X,y, cv=5)
     print(result)
 
