@@ -91,8 +91,14 @@ def SVR(X,y):
 
 
 if __name__ == '__main__':
-    print('accuracy scores of SVR:')
+    print('accuracy scores of SVR for SUI:')
     SVR(X_SUI,y_SUI)
+    print('accuracy scores of SVR for UTI:')
+    SVR(X_UTI,y_UTI)
+    print('accuracy scores of SVR for OAB:')
+    SVR(X_OAB,y_OAB)
+    print('accuracy scores of SVR for UUI:')
+    SVR(X_UUI,y_UUI)
 
 ##KNN Classification using accuracy score
 def knn(X,y):
