@@ -106,7 +106,7 @@ def knn(X,y):
     for key,value in grid.best_params_.items():
         n=value
 
-    result = cross_val_score(KNeighborsClassifier(n_neighbors = 5),X,y, cv=5)
+    result = cross_val_score(KNeighborsClassifier(n_neighbors = n),X,y, cv=5)
     print(result)
 
 if __name__ == '__main__':
