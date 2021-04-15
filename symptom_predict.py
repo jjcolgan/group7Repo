@@ -157,9 +157,21 @@ def knn(X,y):
     #not the best way of doing this, extracting the value of the best params from the dict grid.best_params_
     for key,value in grid.best_params_.items():
         n=value
-
-    result = cross_val_score(KNeighborsClassifier(n_neighbors = n),X,y, cv=5)
-    print(result)
+# Accuracy scores 
+    result = cross_val_score(KNeighborsClassifier(n_neighbors = n),X,y, cv=10)
+    output.write('KNN accuracy after features selection (10 fold): \n')
+    output.write(str(result) + '\n')
+    output.write('average accuracy score: \n')
+    avg = sum(result)/len(result)
+    output.write(str(avg) + '\n'
+#AUC 
+    result = cross_val_score(KNeighborsClassifier(n_neighbors = n),X,y, cv=10,scoring='roc_auc',)
+    output.write(' KNN AUC: \n')
+    output.write(str(result) + '\n')
+    output.write('Average AUC score: \n')
+    avg = sum(result) / len(result)
+    output.write(str(avg) + '\n')
+   
 
 def main():
     output.write('----------------UTI----------------\n')
@@ -193,11 +205,13 @@ def main():
 
     print('accuracy scores of SVR:')
     SVR(X_SUI,y_SUI)
-
-    print('KNN:')
+    output.write('\n----------------UTI----------------\n')
     knn(X_UTI,y_UTI)
+    output.write('\n----------------OAB----------------\n')
     knn(X_OAB,y_OAB)
+    output.write('\n----------------UUI----------------\n')
     knn(X_UUI,y_UUI)
-
+    output.write('\n----------------SUI----------------\n')
+    knn(X_SUI, y_SUI)
 if __name__ == '__main__':
     main()
