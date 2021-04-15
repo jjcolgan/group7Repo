@@ -1,5 +1,6 @@
 # import required libraries
 import pandas as pd
+from sklearn import svm
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.feature_selection import SelectFromModel
 from sklearn.model_selection import cross_val_score, train_test_split, GridSearchCV
@@ -114,12 +115,30 @@ def knn(X,y):
     for key,value in grid.best_params_.items():
         n=value
 
-    result = cross_val_score(KNeighborsClassifier(n_neighbors = 5),X,y, cv=5)
+    result = cross_val_score(KNeighborsClassifier(n_neighbors = n),X,y, cv=5)
     print(result)
 
 if __name__ == '__main__':
+    output.write('UTI \n')
+    random_forest_before_selection(X_UTI,y_UTI)
+    random_forest_feature_select(X_UTI,y_UTI)
+    output.write('\n')
+
+    output.write('\nOAB \n')
+    random_forest_before_selection(X_OAB,y_OAB)
+    random_forest_feature_select(X_OAB,y_OAB)
+    output.write('\n')
+
+    output.write('\nUUI \n')
     random_forest_before_selection(X_UUI,y_UUI)
     random_forest_feature_select(X_UUI,y_UUI)
+    output.write('\n')
+
+    output.write('\nSUI \n')
+    random_forest_before_selection(X_SUI,y_SUI)
+    random_forest_feature_select(X_SUI,y_SUI)
+    output.write('\n')
+
 
     print('accuracy scores of SVR:')
     SVR(X_SUI,y_SUI)
