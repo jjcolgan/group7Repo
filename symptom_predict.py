@@ -39,11 +39,20 @@ y_SUI = SUI['outcome'].values
 ''' run random forest classification using accuracy score as a measure '''
 # 10 folds
 def random_forest_before_selection(X,y):
+    # find accuracy score
     result = cross_val_score(RandomForestClassifier(n_estimators=1000,random_state=1),X,y, cv=10)
     output.write('Random forest classification before feature selection - 10 fold (accuracy scores): ' + '\n')
     output.write(str(result) + '\n')
     avg = sum(result)/len(result)
-    output.write('average accuracy score: \n' + str(avg) + '\n')
+    output.write('Average accuracy score: \n' + str(avg) + '\n')
+    output.write('AUC score: \n')
+
+    # find AUC score
+    result = cross_val_score(RandomForestClassifier(n_estimators=1000, random_state=1), X, y, scoring='roc_auc', cv=10)
+    output.write(str(result) + '\n')
+    avg = sum(result) / len(result)
+    output.write('average AUC score: \n' + str(avg) + '\n')
+
 
 ''' feature selection uses test_train_split instead of cross validation, since cross val
     uses the test data in each fold of the cross-validation procedure which was also used 
@@ -81,13 +90,23 @@ def random_forest_feature_select(X,y):
         output.write(str(features[feature_list_index]) + '\n')
 
     # create new dataset with important features & run new cross validation
+    # accuracy score
     X_important_train = sel_feat.transform(X_train)
     result = (cross_val_score(RandomForestClassifier(n_estimators=1000,random_state=1, n_jobs=-1),X_important_train,y_train, cv=10))
     output.write('Classification accuracy after features selection (10 fold): \n')
     output.write(str(result) + '\n')
     output.write('average accuracy score: \n')
     avg = sum(result)/len(result)
-    output.write(str(avg))
+    output.write(str(avg) + '\n')
+
+    # AUC score
+    result = (cross_val_score(RandomForestClassifier(n_estimators=1000, random_state=1, n_jobs=-1), X_important_train,
+                              y_train, scoring='roc_auc', cv=10))
+    output.write('AUC after feature selection (10 fold): \n')
+    output.write(str(result) + '\n')
+    output.write('Average AUC score: \n')
+    avg = sum(result) / len(result)
+    output.write(str(avg) + '\n')
 
 def SVR(X,y):
     clf = svm.SVC(C=1, random_state=10)
@@ -124,20 +143,20 @@ if __name__ == '__main__':
     random_forest_feature_select(X_UTI,y_UTI)
     output.write('\n')
 
-    output.write('\nOAB \n')
-    random_forest_before_selection(X_OAB,y_OAB)
-    random_forest_feature_select(X_OAB,y_OAB)
-    output.write('\n')
-
-    output.write('\nUUI \n')
-    random_forest_before_selection(X_UUI,y_UUI)
-    random_forest_feature_select(X_UUI,y_UUI)
-    output.write('\n')
-
-    output.write('\nSUI \n')
-    random_forest_before_selection(X_SUI,y_SUI)
-    random_forest_feature_select(X_SUI,y_SUI)
-    output.write('\n')
+    # output.write('\nOAB \n')
+    # random_forest_before_selection(X_OAB,y_OAB)
+    # random_forest_feature_select(X_OAB,y_OAB)
+    # output.write('\n')
+    #
+    # output.write('\nUUI \n')
+    # random_forest_before_selection(X_UUI,y_UUI)
+    # random_forest_feature_select(X_UUI,y_UUI)
+    # output.write('\n')
+    #
+    # output.write('\nSUI \n')
+    # random_forest_before_selection(X_SUI,y_SUI)
+    # random_forest_feature_select(X_SUI,y_SUI)
+    # output.write('\n')
 
 
     print('accuracy scores of SVR:')
