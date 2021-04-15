@@ -1,4 +1,4 @@
-UTI 
+----------------UTI----------------
 Random forest classification before feature selection - 10 fold (accuracy scores): 
 [0.875      0.6875     0.75       0.875      0.75       0.6875
  1.         0.8        0.66666667 0.86666667]
@@ -147,8 +147,505 @@ Classification accuracy after features selection (10 fold):
 [0.69230769 0.84615385 0.84615385 0.92307692 0.76923077 0.75
  0.83333333 0.83333333 0.91666667 0.83333333]
 average accuracy score: 
-0.8243589743589743AUC after feature selection (10 fold): 
+0.8243589743589743
+AUC after feature selection (10 fold): 
 [0.88095238 0.8452381  0.9047619  0.83333333 0.9047619  0.74285714
  0.84285714 0.78571429 1.         0.88888889]
 Average AUC score: 
 0.862936507936508
+
+
+----------------OAB----------------
+Random forest classification before feature selection - 10 fold (accuracy scores): 
+[0.57142857 0.5        0.71428571 0.64285714 0.57142857 0.64285714
+ 0.76923077 0.46153846 0.53846154 0.69230769]
+Average accuracy score: 
+0.6104395604395605
+AUC score: 
+[0.42222222 0.42222222 0.81111111 0.82222222 0.57777778 0.75
+ 0.675      0.45       0.5        0.75      ]
+average AUC score: 
+0.6180555555555556
+Gini importance of each feature: 
+('Acinetobacterjohnsonii', 0.0)
+('Actinobaculumschaalii', 0.02269903917371159)
+('Actinobaculumurinae', 0.0002873757252874411)
+('Actinomyceseuropaeus', 0.0016238444971180333)
+('Actinomycesgraevenitzii', 0.0006065252498058104)
+('Actinomycesneuii', 0.014746510425570906)
+('Actinomycesodontolyticus', 0.0006712523901747724)
+('Actinomycesoris  ', 0.000643263981348381)
+('Actinomycesradingae', 0.00395961689336521)
+('Actinomycesturicensis', 0.026331876008979235)
+('Actinomycesurogenitalis', 0.00966648042981886)
+('Aerococcus christensenii', 0.0010259494446174498)
+('Aerococcussanguinicola', 0.00440846861072161)
+('Aerococcusurinae', 0.038063618913954295)
+('Aerococcusviridans', 0.0006136295918006901)
+('Alloscardoviaomnicolens', 0.01917629646110552)
+('Arthrobactercumminsii', 0.01251850722880012)
+('Bacillusinfantis', 0.0)
+('Bacillussubtilis', 0.006368173959874078)
+('Bifidobacteriumbifidum ', 0.002520529110742304)
+('Bifidobacteriumbreve', 0.011752702453183517)
+('Bifidobacteriumdentum ', 0.0011421616681229086)
+('Bidifobacteriumlongum ', 0.0010887096234394509)
+('Brevibacteriumpaucivorans', 0.0)
+('Brevibacteriumravenspurgense', 0.0011783324533183644)
+('Candidaalbicans', 0.0)
+('Candidaglabrata', 0.01872055661905088)
+('Candidaparapsilosis', 0.0)
+('Candidalusitaniae', 0.0023253178846696664)
+('Citrobacterfreundii', 0.0)
+('Citrobacterkoseri', 0.0)
+('Corynebacteriumafermentas', 0.0033954843389237396)
+('Corynebacteriumamycolatum', 0.002823716436958841)
+('Corynebacteriumaurimucosum', 0.006679642133579882)
+('Corynebacteriumcoyleae', 0.0260201186579552)
+('Corynebacteriumfreneyi', 0.0003468598979031375)
+('Corynebacteriumglucuronolyticum', 0.0)
+('Corynebacteriumimitans', 0.004751364197126887)
+('Corynebacteriumjeikeium', 0.0)
+('Corynebacteriumlipophilegroup', 0.009835218219824651)
+('Corynebacteirummatruchotii  ', 0.0006748076470260505)
+('Corynebacteriumminutissimum ', 0.002558387640988002)
+('Corynebacteriumriegelii', 0.013171354056111478)
+('Corynebacteriumsimulans', 0.0)
+('Corynebacteriumspecies', 0.0)
+('Corynebacteriumstriatum', 0.005362442724804148)
+('Corynebacteriumtuberculostericum', 0.002196977415707106)
+('Corynebacteriumtuscaniense', 0.0008079249818348095)
+('Corynebacteriumurealyticum', 0.00507656256630765)
+('Dermabacterhominis', 0.0003555444399629415)
+('Dialistermicroaerophilus', 0.0)
+('Enterobacteraerogenes', 0.005228239842696859)
+('Enterobacterasburiae', 0.0038822961854737673)
+('Enterobactercloacae', 0.004492537873051305)
+('Enterobacterludwigii', 0.004920020507007197)
+('Enterococcusfaecalis', 0.04733626939515538)
+('Enterococcusfaecium', 0.0005764855375951153)
+('Escherichiacoli', 0.04250926774159167)
+('Facklamiahominis', 0.008885780188126104)
+('Fingoldiamagna ', 0.001023228738915415)
+('Fusobacteriumnucleatum ', 0.0010528115294647148)
+('Gardnerellaspecies', 0.006008555405274794)
+('Gardnerellavaginalis', 0.06727997969838295)
+('Gemellahaemolysans', 0.0001424091287783662)
+('Gemellasanguninis  ', 0.000986248148643354)
+('Globicatellasulfidiciens', 0.0005476703766019848)
+('Haemophilusparainfluenzae', 0.0)
+('Klebsiellapneumoniae', 0.0013568465777186206)
+('Kocuriarhizophila', 0.0037847822004185086)
+('Kytococcusschroeteri', 0.0)
+('Lactobacilluscrispatus', 0.021937419161866936)
+('Lactobacillusdelbrueckii', 0.0024439417071569214)
+('Lactobacillusfermentum', 0.000920376356419604)
+('Lactobacillusgasseri', 0.12047988551320014)
+('Lactobacillusiners', 0.03666086421903822)
+('Lactobacillusjensenii', 0.012487657276693943)
+('Lactobacillusjohnsonii', 0.005198361652385165)
+('Lactobacillusparacasei', 0.0)
+('Lactobacilluspentosus', 0.0)
+('Lactobacillusreuteri', 0.0)
+('Lactobacillusrhamnosus', 0.006531546484185732)
+('Micrococcusluteus', 0.012063985436473456)
+('Micrococcuslylae', 9.68771509029589e-05)
+('Morganellamorganii', 0.0)
+('Neisseriaflavescens', 0.0)
+('Neisseriaperflava', 0.00024674753981572496)
+('Oligellaurethralis', 0.020954866359845534)
+('Peptoniphilusharei ', 0.008584690383805571)
+('Prevotellabivia', 0.003032636705125713)
+('Propionibacteriumacnes', 0.0048109615658036954)
+('Propionibacteriumavidum', 0.00011552969923640047)
+('Propionimicrobiumlymphophilum', 0.0005602781985877953)
+('Proteusmirabilis', 0.0)
+('Pseudomonasaeruginosa ', 0.001490614123835546)
+('Rothiaaeria', 0.0)
+('Rothiadentocariosa', 0.002028634221644564)
+('Rothiamucilaginosa', 0.0006007729743661869)
+('Serratiamarcescens', 0.0)
+('Slackiaexigua   ', 0.0009600884063053161)
+('Staphylococcusaureus', 0.0)
+('Staphylococcuscapitis', 0.005165237659322591)
+('Staphylococcuscaprae', 0.0)
+('Staphylococcusepidermidis', 0.04351357004189967)
+('Staphylococcushaemolyticus', 0.004371861642523002)
+('Staphylococcushominis', 0.0019246204186858097)
+('Staphylococcuslugdunesis ', 0.010508956610967488)
+('Staphylococcuspettenkoferi', 0.001780076232519197)
+('Staphylococcussimulans', 0.005229916031376599)
+('Staphylococcuswarneri', 0.0013316487777462608)
+('Streptococcusagalactiae', 0.022784609339066737)
+('Streptococcusanginosus', 0.08042407315397447)
+('Streptococcusconstellatus', 0.0)
+('Streptococcuscristatus', 0.0)
+('Streptococcusgallolyticus', 0.0012131312388328527)
+('Streptococcusgordonii', 0.0008202151095356939)
+('Streptococcusmitisoralispneumoniae', 0.03299850055339674)
+('Streptococcusparasanguinis', 0.0008788576544812558)
+('Streptococcussalivarius', 0.001523860191509829)
+('Streptococcussanguinis', 0.00047967160217592553)
+('Streptococcusvestibularis', 0.0022782309251655904)
+('Trueperellabernardiae', 0.009366318516106295)
+('Unknown', 0.024991335935527107)
+Top 10 most important features: 
+Actinomycesturicensis
+Aerococcusurinae
+Enterococcusfaecalis
+Escherichiacoli
+Gardnerellavaginalis
+Lactobacillusgasseri
+Lactobacillusiners
+Staphylococcusepidermidis
+Streptococcusanginosus
+Streptococcusmitisoralispneumoniae
+Classification accuracy after features selection (10 fold): 
+[0.63636364 0.63636364 0.90909091 0.90909091 0.72727273 0.81818182
+ 0.63636364 0.36363636 0.8        0.8       ]
+average accuracy score: 
+0.7236363636363636
+AUC after feature selection (10 fold): 
+[0.55357143 0.51785714 0.89285714 0.82142857 0.60714286 0.89285714
+ 0.75       0.43333333 0.875      0.75      ]
+Average AUC score: 
+0.7094047619047619
+
+
+----------------UUI----------------
+Random forest classification before feature selection - 10 fold (accuracy scores): 
+[0.69230769 0.76923077 0.69230769 0.58333333 0.41666667 0.5
+ 0.66666667 0.75       0.58333333 0.58333333]
+Average accuracy score: 
+0.6237179487179487
+AUC score: 
+[0.22222222 0.63888889 0.69444444 0.61111111 0.37037037 0.65625
+ 0.78125    0.71875    0.5625     0.40625   ]
+average AUC score: 
+0.5662037037037038
+Gini importance of each feature: 
+('Acinetobacterjohnsonii', 0.0)
+('Actinobaculumschaalii', 0.0)
+('Actinobaculumurinae', 0.0)
+('Actinomyceseuropaeus', 0.0007194812213487597)
+('Actinomycesgraevenitzii', 0.0)
+('Actinomycesneuii', 0.0038194205238570103)
+('Actinomycesodontolyticus', 0.0004557936518616083)
+('Actinomycesoris  ', 0.0)
+('Actinomycesradingae', 0.0)
+('Actinomycesturicensis', 0.03821724820832182)
+('Actinomycesurogenitalis', 0.0)
+('Aerococcus christensenii', 0.0005143806345540284)
+('Aerococcussanguinicola', 0.0)
+('Aerococcusurinae', 0.022069964242294043)
+('Aerococcusviridans', 0.0)
+('Alloscardoviaomnicolens', 0.016363955642944076)
+('Arthrobactercumminsii', 0.00447632566635095)
+('Bacillusinfantis', 0.0)
+('Bacillussubtilis', 0.0)
+('Bifidobacteriumbifidum ', 0.00036449506030846335)
+('Bifidobacteriumbreve', 0.0016625009501079618)
+('Bifidobacteriumdentum ', 0.005075256537871252)
+('Bidifobacteriumlongum ', 0.0008179231878052987)
+('Brevibacteriumpaucivorans', 0.0004824899875389496)
+('Brevibacteriumravenspurgense', 0.0)
+('Candidaalbicans', 0.0)
+('Candidaglabrata', 0.0023874044861863014)
+('Candidaparapsilosis', 0.0)
+('Candidalusitaniae', 0.0023986797830276587)
+('Citrobacterfreundii', 0.0)
+('Citrobacterkoseri', 0.0)
+('Corynebacteriumafermentas', 0.0)
+('Corynebacteriumamycolatum', 0.003853984284494152)
+('Corynebacteriumaurimucosum', 0.004941463384231192)
+('Corynebacteriumcoyleae', 0.039765644777385194)
+('Corynebacteriumfreneyi', 0.0)
+('Corynebacteriumglucuronolyticum', 0.0)
+('Corynebacteriumimitans', 0.011826210349344612)
+('Corynebacteriumjeikeium', 0.003752940211667089)
+('Corynebacteriumlipophilegroup', 0.03832849827609858)
+('Corynebacteirummatruchotii  ', 0.0)
+('Corynebacteriumminutissimum ', 0.006875090990860836)
+('Corynebacteriumriegelii', 0.0031149965775825925)
+('Corynebacteriumsimulans', 0.0)
+('Corynebacteriumspecies', 0.0)
+('Corynebacteriumstriatum', 0.0031885689156837147)
+('Corynebacteriumtuberculostericum', 0.008477567386010644)
+('Corynebacteriumtuscaniense', 0.00046333016229277993)
+('Corynebacteriumurealyticum', 0.0)
+('Dermabacterhominis', 0.0)
+('Dialistermicroaerophilus', 0.0)
+('Enterobacteraerogenes', 0.0)
+('Enterobacterasburiae', 0.0)
+('Enterobactercloacae', 0.0)
+('Enterobacterludwigii', 0.0)
+('Enterococcusfaecalis', 0.028956972325407265)
+('Enterococcusfaecium', 0.0)
+('Escherichiacoli', 0.06991422326725749)
+('Facklamiahominis', 0.0009093696319229442)
+('Fingoldiamagna ', 0.0)
+('Fusobacteriumnucleatum ', 0.0)
+('Gardnerellaspecies', 0.010982103225162153)
+('Gardnerellavaginalis', 0.046037663604227445)
+('Gemellahaemolysans', 0.0)
+('Gemellasanguninis  ', 0.0)
+('Globicatellasulfidiciens', 0.0)
+('Haemophilusparainfluenzae', 0.0)
+('Klebsiellapneumoniae', 0.005686293337202399)
+('Kocuriarhizophila', 0.00390589444986528)
+('Kytococcusschroeteri', 0.0)
+('Lactobacilluscrispatus', 0.12345973462692028)
+('Lactobacillusdelbrueckii', 0.000507566592520326)
+('Lactobacillusfermentum', 0.0)
+('Lactobacillusgasseri', 0.07493650694703105)
+('Lactobacillusiners', 0.06774058988768795)
+('Lactobacillusjensenii', 0.053936598459791055)
+('Lactobacillusjohnsonii', 0.0)
+('Lactobacillusparacasei', 0.006834709269618376)
+('Lactobacilluspentosus', 0.008502317969376545)
+('Lactobacillusreuteri', 0.0)
+('Lactobacillusrhamnosus', 0.00041049937259009646)
+('Micrococcusluteus', 0.010149992257234683)
+('Micrococcuslylae', 0.0)
+('Morganellamorganii', 0.0)
+('Neisseriaflavescens', 0.0)
+('Neisseriaperflava', 0.00015146648739069925)
+('Oligellaurethralis', 0.0)
+('Peptoniphilusharei ', 0.0)
+('Prevotellabivia', 0.0)
+('Propionibacteriumacnes', 0.0)
+('Propionibacteriumavidum', 0.0)
+('Propionimicrobiumlymphophilum', 0.0)
+('Proteusmirabilis', 0.0)
+('Pseudomonasaeruginosa ', 0.0)
+('Rothiaaeria', 0.0)
+('Rothiadentocariosa', 0.0)
+('Rothiamucilaginosa', 0.0003266914800690192)
+('Serratiamarcescens', 0.0)
+('Slackiaexigua   ', 0.0)
+('Staphylococcusaureus', 0.010658442708874496)
+('Staphylococcuscapitis', 0.000596568609803116)
+('Staphylococcuscaprae', 0.0)
+('Staphylococcusepidermidis', 0.0466629877456479)
+('Staphylococcushaemolyticus', 0.004100594195665182)
+('Staphylococcushominis', 0.03999777486619799)
+('Staphylococcuslugdunesis ', 0.0014142256382779301)
+('Staphylococcuspettenkoferi', 0.005395776250020251)
+('Staphylococcussimulans', 0.0038029664709814345)
+('Staphylococcuswarneri', 0.00033672575679359173)
+('Streptococcusagalactiae', 0.014685106984289698)
+('Streptococcusanginosus', 0.08493033044946273)
+('Streptococcusconstellatus', 0.0)
+('Streptococcuscristatus', 0.0)
+('Streptococcusgallolyticus', 0.0008959744367327101)
+('Streptococcusgordonii', 0.0)
+('Streptococcusmitisoralispneumoniae', 0.021364698848332322)
+('Streptococcusparasanguinis', 0.0006231420205105823)
+('Streptococcussalivarius', 0.0060741256456473295)
+('Streptococcussanguinis', 0.0004152317747090449)
+('Streptococcusvestibularis', 0.0005315443516183422)
+('Trueperellabernardiae', 0.0)
+('Unknown', 0.019750974955130875)
+Top 10 most important features: 
+Corynebacteriumcoyleae
+Escherichiacoli
+Gardnerellavaginalis
+Lactobacilluscrispatus
+Lactobacillusgasseri
+Lactobacillusiners
+Lactobacillusjensenii
+Staphylococcusepidermidis
+Staphylococcushominis
+Streptococcusanginosus
+Classification accuracy after features selection (10 fold): 
+[0.7        0.7        0.5        0.7        0.6        0.7
+ 0.8        0.6        0.88888889 0.66666667]
+average accuracy score: 
+0.6855555555555555
+AUC after feature selection (10 fold): 
+[0.34375    0.71428571 0.66666667 0.71428571 0.42857143 0.57142857
+ 0.66666667 0.5952381  0.85714286 0.53571429]
+Average AUC score: 
+0.6093749999999999
+
+
+----------------SUI----------------
+Random forest classification before feature selection - 10 fold (accuracy scores): 
+[0.84615385 0.61538462 0.69230769 0.46153846 0.46153846 0.76923077
+ 0.69230769 0.53846154 0.75       0.66666667]
+Average accuracy score: 
+0.6493589743589745
+AUC score: 
+[0.88888889 0.5        0.80555556 0.63888889 0.61111111 0.9
+ 0.725      0.8        0.53125    0.625     ]
+average AUC score: 
+0.7025694444444445
+Gini importance of each feature: 
+('Acinetobacterjohnsonii', 0.0)
+('Actinobaculumschaalii', 0.037599016472362204)
+('Actinobaculumurinae', 0.0)
+('Actinomyceseuropaeus', 0.002366128550475322)
+('Actinomycesgraevenitzii', 0.0)
+('Actinomycesneuii', 0.04024778821459804)
+('Actinomycesodontolyticus', 0.001664893906480348)
+('Actinomycesoris  ', 0.0023506403635895493)
+('Actinomycesradingae', 0.0)
+('Actinomycesturicensis', 0.0009501536774210308)
+('Actinomycesurogenitalis', 0.0)
+('Aerococcus christensenii', 0.0018888615354160452)
+('Aerococcussanguinicola', 0.018462956950431215)
+('Aerococcusurinae', 0.059460792529792424)
+('Aerococcusviridans', 0.0)
+('Alloscardoviaomnicolens', 0.02908646001956752)
+('Arthrobactercumminsii', 0.008340166526008715)
+('Bacillusinfantis', 0.0)
+('Bacillussubtilis', 0.0)
+('Bifidobacteriumbifidum ', 0.00032666388807075055)
+('Bifidobacteriumbreve', 0.0006841075867565652)
+('Bifidobacteriumdentum ', 0.0019355933185760308)
+('Bidifobacteriumlongum ', 0.0005837145595480397)
+('Brevibacteriumpaucivorans', 0.00022703575581564333)
+('Brevibacteriumravenspurgense', 0.0026503135929024603)
+('Candidaalbicans', 0.0)
+('Candidaglabrata', 0.021298451125034076)
+('Candidaparapsilosis', 0.0)
+('Candidalusitaniae', 0.0008711682390390143)
+('Citrobacterfreundii', 0.0)
+('Citrobacterkoseri', 0.0)
+('Corynebacteriumafermentas', 0.0)
+('Corynebacteriumamycolatum', 0.0023732953803262576)
+('Corynebacteriumaurimucosum', 0.030851612949557215)
+('Corynebacteriumcoyleae', 0.004976902150896436)
+('Corynebacteriumfreneyi', 0.0)
+('Corynebacteriumglucuronolyticum', 0.0)
+('Corynebacteriumimitans', 0.0)
+('Corynebacteriumjeikeium', 0.00031280811485189685)
+('Corynebacteriumlipophilegroup', 0.02679981297209522)
+('Corynebacteirummatruchotii  ', 0.0)
+('Corynebacteriumminutissimum ', 0.005038757538807306)
+('Corynebacteriumriegelii', 0.0)
+('Corynebacteriumsimulans', 0.0)
+('Corynebacteriumspecies', 0.018323887893449787)
+('Corynebacteriumstriatum', 0.000759327272501327)
+('Corynebacteriumtuberculostericum', 0.0006047876967986744)
+('Corynebacteriumtuscaniense', 0.0024310063268097692)
+('Corynebacteriumurealyticum', 0.0)
+('Dermabacterhominis', 0.0026300923153874316)
+('Dialistermicroaerophilus', 0.0)
+('Enterobacteraerogenes', 0.0)
+('Enterobacterasburiae', 0.0)
+('Enterobactercloacae', 0.0)
+('Enterobacterludwigii', 0.0)
+('Enterococcusfaecalis', 0.01600969852723241)
+('Enterococcusfaecium', 0.0)
+('Escherichiacoli', 0.04268435604753097)
+('Facklamiahominis', 0.002562940258878795)
+('Fingoldiamagna ', 0.0)
+('Fusobacteriumnucleatum ', 0.0)
+('Gardnerellaspecies', 0.003046330906911292)
+('Gardnerellavaginalis', 0.07796568938604015)
+('Gemellahaemolysans', 0.0)
+('Gemellasanguninis  ', 0.0)
+('Globicatellasulfidiciens', 0.0)
+('Haemophilusparainfluenzae', 0.001577121043054722)
+('Klebsiellapneumoniae', 0.00025950306005288493)
+('Kocuriarhizophila', 0.0)
+('Kytococcusschroeteri', 0.0)
+('Lactobacilluscrispatus', 0.022641557504021668)
+('Lactobacillusdelbrueckii', 0.00022942313242746263)
+('Lactobacillusfermentum', 0.0)
+('Lactobacillusgasseri', 0.0428682030878769)
+('Lactobacillusiners', 0.05219465514093695)
+('Lactobacillusjensenii', 0.08573854270074807)
+('Lactobacillusjohnsonii', 0.0)
+('Lactobacillusparacasei', 0.0)
+('Lactobacilluspentosus', 0.0)
+('Lactobacillusreuteri', 0.0)
+('Lactobacillusrhamnosus', 0.0003198367961889203)
+('Micrococcusluteus', 0.012374594306506788)
+('Micrococcuslylae', 0.0)
+('Morganellamorganii', 0.0)
+('Neisseriaflavescens', 0.0019373594467854776)
+('Neisseriaperflava', 0.0014486148817207532)
+('Oligellaurethralis', 0.002059790617438996)
+('Peptoniphilusharei ', 0.0)
+('Prevotellabivia', 0.012539700866770637)
+('Propionibacteriumacnes', 0.0)
+('Propionibacteriumavidum', 0.0)
+('Propionimicrobiumlymphophilum', 0.0)
+('Proteusmirabilis', 0.0)
+('Pseudomonasaeruginosa ', 0.0)
+('Rothiaaeria', 0.001957864808220356)
+('Rothiadentocariosa', 0.016624364366477677)
+('Rothiamucilaginosa', 0.00979544131300969)
+('Serratiamarcescens', 0.0)
+('Slackiaexigua   ', 0.0)
+('Staphylococcusaureus', 0.022382469916043528)
+('Staphylococcuscapitis', 0.010940117683174473)
+('Staphylococcuscaprae', 0.0)
+('Staphylococcusepidermidis', 0.04275569801946738)
+('Staphylococcushaemolyticus', 0.00816077932522587)
+('Staphylococcushominis', 0.006984913212910662)
+('Staphylococcuslugdunesis ', 0.002924238016703096)
+('Staphylococcuspettenkoferi', 0.0024008343627314817)
+('Staphylococcussimulans', 0.0017717757054735107)
+('Staphylococcuswarneri', 0.0007388478416012658)
+('Streptococcusagalactiae', 0.019113992427170507)
+('Streptococcusanginosus', 0.05379250538444951)
+('Streptococcusconstellatus', 0.010513146065199727)
+('Streptococcuscristatus', 0.0)
+('Streptococcusgallolyticus', 0.006413289893511694)
+('Streptococcusgordonii', 0.0)
+('Streptococcusmitisoralispneumoniae', 0.024094734137510957)
+('Streptococcusparasanguinis', 0.00325058159978858)
+('Streptococcussalivarius', 0.005769166566495859)
+('Streptococcussanguinis', 0.003218750878544212)
+('Streptococcusvestibularis', 0.00030479656669278387)
+('Trueperellabernardiae', 0.008630352182843635)
+('Unknown', 0.032906224592263535)
+Top 10 most important features: 
+Actinobaculumschaalii
+Actinomycesneuii
+Aerococcusurinae
+Escherichiacoli
+Gardnerellavaginalis
+Lactobacillusgasseri
+Lactobacillusiners
+Lactobacillusjensenii
+Staphylococcusepidermidis
+Streptococcusanginosus
+Classification accuracy after features selection (10 fold): 
+[0.72727273 0.72727273 0.8        0.6        0.7        0.8
+ 0.8        0.8        0.8        0.7       ]
+average accuracy score: 
+0.7454545454545454
+AUC after feature selection (10 fold): 
+[0.75       0.70833333 0.61904762 0.35714286 0.71428571 1.
+ 0.9047619  0.76190476 0.9047619  0.76190476]
+Average AUC score: 
+0.7482142857142857
+
+
+----------------UTI----------------
+Elastic net results: 
+Best alpha value: 744.0030117429975
+Best l1-ratio: 0.05
+R^2 score: 0.15749631347387738
+
+----------------OAB----------------
+Elastic net results: 
+Best alpha value: 131.46266903352844
+Best l1-ratio: 0.05
+R^2 score: 0.05459038373026415
+
+----------------UUI----------------
+Elastic net results: 
+Best alpha value: 1210.3977509371082
+Best l1-ratio: 1.0
+R^2 score: -0.10980881883630755
+
+----------------SUI----------------
+Elastic net results: 
+Best alpha value: 424.7803628653222
+Best l1-ratio: 0.05
+R^2 score: -0.14022677938047345
