@@ -1,8 +1,13 @@
 # import required libraries
 import pandas as pd
+from sklearn import svm
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.feature_selection import SelectFromModel
-from sklearn.model_selection import cross_val_score, train_test_split
+from sklearn.model_selection import cross_val_score, train_test_split, GridSearchCV
+from sklearn.neighbors import KNeighborsClassifier
+
+# create outfile
+output = open('outfile.txt','w')
 
 df = pd.read_csv('transposedCo-occurenceDataWithOutcomes.csv')
 features = df.columns.drop(['PatientID','outcome']).values
@@ -32,10 +37,13 @@ X_SUI = SUI.drop(['PatientID','outcome'], axis=1).values
 y_SUI = SUI['outcome'].values
 
 ''' run random forest classification using accuracy score as a measure '''
-# 5 folds
+# 10 folds
 def random_forest_before_selection(X,y):
-    result = cross_val_score(RandomForestClassifier(n_estimators=1000,random_state=1),X,y, cv=5)
-    print(result)
+    result = cross_val_score(RandomForestClassifier(n_estimators=1000,random_state=1),X,y, cv=10)
+    output.write('Random forest classification before feature selection - 10 fold (accuracy scores): ' + '\n')
+    output.write(str(result) + '\n')
+    avg = sum(result)/len(result)
+    output.write('average accuracy score: \n' + str(avg) + '\n')
 
 ''' feature selection uses test_train_split instead of cross validation, since cross val
     uses the test data in each fold of the cross-validation procedure which was also used 
@@ -53,8 +61,9 @@ def random_forest_feature_select(X,y):
 
     # return the bacteria name and its gini importance
     feat_importance = list(zip(features, model.feature_importances_))
+    output.write('Gini importance of each feature: \n')
     for i in feat_importance:
-        print(i)
+        output.write(str(i) + '\n')
 
     # threshold = smallest of top 10 gini importances
     top_10 = (sorted(feat_importance, key=lambda t: t[1], reverse=True)[:10])
@@ -67,19 +76,56 @@ def random_forest_feature_select(X,y):
     sel_feat.fit(X_train, y_train)
 
     # print most important features
+    output.write('Top 10 most important features: \n')
     for feature_list_index in sel_feat.get_support(indices=True):
-        print(features[feature_list_index])
+        output.write(str(features[feature_list_index]) + '\n')
 
     # create new dataset with important features & run new cross validation
     X_important_train = sel_feat.transform(X_train)
-    print(cross_val_score(RandomForestClassifier(n_estimators=60,random_state=1, n_jobs=-1),X_important_train,y_train, cv=5))
+    result = (cross_val_score(RandomForestClassifier(n_estimators=1000,random_state=1, n_jobs=-1),X_important_train,y_train, cv=10))
+    output.write('Classification accuracy after features selection (10 fold): \n')
+    output.write(str(result) + '\n')
+    output.write('average accuracy score: \n')
+    avg = sum(result)/len(result)
+    output.write(str(avg))
+
+def SVR(X,y):
+    clf = svm.SVC(C=1, random_state=10)
+    scores = cross_val_score(clf, X, y, cv=5)
+    print(scores)
+
+##KNN
+def knn(X,y):
+    # Grid search code for fiding optimal number of neighbors
+    #taken from: https://www.ritchieng.com/machine-learning-efficiently-search-tuning-param/
+    # instantiate model
+    knn = KNeighborsClassifier(n_neighbors=5)
+    k_range = list(range(1, 31))
+    # create a parameter grid: map the parameter names to the values that should be searched
+    # simply a python dictionary
+    # key: parameter name
+    # value: list of values that should be searched for that parameter
+    # single key-value pair for param_grid
+    param_grid = dict(n_neighbors=k_range)
+    # instantiate the grid
+    grid = GridSearchCV(knn, param_grid, cv=10, scoring='accuracy')
+    grid.fit(X, y)
+    n=0
+    #not the best way of doing this, extracting the value of the best params from the dict grid.best_params_
+    for key,value in grid.best_params_.items():
+        n=value
+
+    result = cross_val_score(KNeighborsClassifier(n_neighbors = 5),X,y, cv=5)
+    print(result)
 
 if __name__ == '__main__':
-    print('accuracy scores of random forest before feature selection:')
-    random_forest_before_selection(X_SUI,y_SUI)
-    print('accuracy scores of random forest after feature selection:')
-    random_forest_feature_select(X_SUI,y_SUI)
+    random_forest_before_selection(X_UUI,y_UUI)
+    random_forest_feature_select(X_UUI,y_UUI)
 
+    print('accuracy scores of SVR:')
+    SVR(X_SUI,y_SUI)
 
-
-
+    print('KNN:')
+    knn(X_UTI,y_UTI)
+    knn(X_OAB,y_OAB)
+    knn(X_UUI,y_UUI)
