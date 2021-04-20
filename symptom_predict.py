@@ -165,7 +165,7 @@ def knn(X,y):
     avg = sum(result)/len(result)
     output.write(str(avg) + '\n'
 #AUC 
-    result = cross_val_score(KNeighborsClassifier(n_neighbors = n),X,y, cv=10,scoring='roc_auc',)
+    result = cross_val_score(KNeighborsClassifier(n_neighbors = n), X, y, scoring='roc_auc', cv=10)
     output.write(' KNN AUC: \n')
     output.write(str(result) + '\n')
     output.write('Average AUC score: \n')
