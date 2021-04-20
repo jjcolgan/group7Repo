@@ -3,8 +3,11 @@ import pandas as pd
 from sklearn import svm
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.feature_selection import SelectFromModel
+from sklearn.metrics import r2_score
 from sklearn.model_selection import cross_val_score, train_test_split, GridSearchCV
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.linear_model import ElasticNetCV
+from sklearn.datasets import make_regression
 
 # create outfile
 output = open('outfile.txt','w')
@@ -108,6 +111,27 @@ def random_forest_feature_select(X,y):
     avg = sum(result) / len(result)
     output.write(str(avg) + '\n')
 
+def elastic_net(X,y):
+    # Split the data into 20% test and 80% training
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=1)
+
+    result = ElasticNetCV(l1_ratio=[.05, 0.1, .2, .5, .75, .9, .95, .99, 1], n_jobs=9)
+    result.fit(X_train, y_train)
+
+    output.write('Elastic net results: \n')
+    # return best alpha and best L1
+    output.write('Best alpha value: ')
+    output.write(str(result.alpha_) + '\n')
+    output.write('Best l1-ratio: ')
+    output.write(str(result.l1_ratio_) + '\n')
+
+    # predict results
+    y_pred = result.predict(X_test)
+
+    # find R^2 - compare predictions to actual values
+    score = r2_score(y_test, y_pred)
+    output.write('R^2 score: ' + str(score) + '\n')
+
 def SVR(X,y):
     clf = svm.SVC(C=1, random_state=10)
     scores = cross_val_score(clf, X, y, cv=5)
@@ -137,27 +161,35 @@ def knn(X,y):
     result = cross_val_score(KNeighborsClassifier(n_neighbors = n),X,y, cv=5)
     print(result)
 
-if __name__ == '__main__':
-    output.write('UTI \n')
+def main():
+    output.write('----------------UTI----------------\n')
     random_forest_before_selection(X_UTI,y_UTI)
     random_forest_feature_select(X_UTI,y_UTI)
     output.write('\n')
 
-    output.write('\nOAB \n')
+    output.write('\n----------------OAB----------------\n')
     random_forest_before_selection(X_OAB,y_OAB)
     random_forest_feature_select(X_OAB,y_OAB)
     output.write('\n')
 
-    output.write('\nUUI \n')
+    output.write('\n----------------UUI----------------\n')
     random_forest_before_selection(X_UUI,y_UUI)
     random_forest_feature_select(X_UUI,y_UUI)
     output.write('\n')
 
-    output.write('\nSUI \n')
+    output.write('\n----------------SUI----------------\n')
     random_forest_before_selection(X_SUI,y_SUI)
     random_forest_feature_select(X_SUI,y_SUI)
     output.write('\n')
 
+    output.write('\n----------------UTI----------------\n')
+    elastic_net(X_UTI, y_UTI)
+    output.write('\n----------------OAB----------------\n')
+    elastic_net(X_OAB, y_OAB)
+    output.write('\n----------------UUI----------------\n')
+    elastic_net(X_UUI, y_UUI)
+    output.write('\n----------------SUI----------------\n')
+    elastic_net(X_SUI, y_SUI)
 
     print('accuracy scores of SVR:')
     SVR(X_SUI,y_SUI)
@@ -166,3 +198,6 @@ if __name__ == '__main__':
     knn(X_UTI,y_UTI)
     knn(X_OAB,y_OAB)
     knn(X_UUI,y_UUI)
+
+if __name__ == '__main__':
+    main()
