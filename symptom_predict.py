@@ -1,45 +1,67 @@
 # import required libraries
 import pandas as pd
+from matplotlib import pyplot
 from sklearn import svm
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.feature_selection import SelectFromModel
 from sklearn.metrics import r2_score
 from sklearn.model_selection import cross_val_score, train_test_split, GridSearchCV
 from sklearn.neighbors import KNeighborsClassifier
+
+from sklearn.datasets import make_classification
+
+from sklearn.preprocessing import MinMaxScaler, StandardScaler
+from sklearn.linear_model import LogisticRegression
+
 from sklearn.linear_model import ElasticNetCV
 from sklearn.datasets import make_regression
 
 # create outfile
+
+output = open('outfile.txt', 'w')
+
 output = open('outfile.txt','w')
 
+
 df = pd.read_csv('transposedCo-occurenceDataWithOutcomes.csv')
-features = df.columns.drop(['PatientID','outcome']).values
+features = df.columns.drop(['PatientID', 'outcome']).values
 
 ''' create separate dataframes for control & each symptom 
     declare X and y values for each dataframe 
     y = target values; X = rest of data '''
 
 # control & UTI+
-UTI = df[df.iloc[:,0].str.contains("^(?:C|E)")]
-X_UTI = UTI.drop(['PatientID','outcome'], axis=1).values
+UTI = df[df.iloc[:, 0].str.contains("^(?:C|E)")]
+X_UTI = UTI.drop(['PatientID', 'outcome'], axis=1).values
 y_UTI = UTI['outcome'].values
 
 # control & overactive bladder
-OAB = df[df.iloc[:,0].str.contains("^(?:C|OAB)")]
-X_OAB = OAB.drop(['PatientID','outcome'], axis=1).values
+OAB = df[df.iloc[:, 0].str.contains("^(?:C|OAB)")]
+X_OAB = OAB.drop(['PatientID', 'outcome'], axis=1).values
 y_OAB = OAB['outcome'].values
 
 # control & urge urinary incontinence
-UUI = df[df.iloc[:,0].str.contains("^(?:C|UUI)")]
-X_UUI = UUI.drop(['PatientID','outcome'], axis=1).values
+UUI = df[df.iloc[:, 0].str.contains("^(?:C|UUI)")]
+X_UUI = UUI.drop(['PatientID', 'outcome'], axis=1).values
 y_UUI = UUI['outcome'].values
 
 # control & stress urinary incontinence
-SUI = df[df.iloc[:,0].str.contains("^(?:C|SUI)")]
-X_SUI = SUI.drop(['PatientID','outcome'], axis=1).values
+SUI = df[df.iloc[:, 0].str.contains("^(?:C|SUI)")]
+X_SUI = SUI.drop(['PatientID', 'outcome'], axis=1).values
 y_SUI = SUI['outcome'].values
 
 ''' run random forest classification using accuracy score as a measure '''
+
+
+
+# 10 folds
+def random_forest_before_selection(X, y):
+    # find accuracy score
+    result = cross_val_score(RandomForestClassifier(n_estimators=1000, random_state=1), X, y, cv=10)
+    output.write('Random forest classification before feature selection - 10 fold (accuracy scores): ' + '\n')
+    output.write(str(result) + '\n')
+    avg = sum(result) / len(result)
+
 # 10 folds
 def random_forest_before_selection(X,y):
     # find accuracy score
@@ -47,6 +69,7 @@ def random_forest_before_selection(X,y):
     output.write('Random forest classification before feature selection - 10 fold (accuracy scores): ' + '\n')
     output.write(str(result) + '\n')
     avg = sum(result)/len(result)
+
     output.write('Average accuracy score: \n' + str(avg) + '\n')
     output.write('AUC score: \n')
 
@@ -61,7 +84,8 @@ def random_forest_before_selection(X,y):
     uses the test data in each fold of the cross-validation procedure which was also used 
     to choose the features and this is what biases the performance analysis.'''
 
-def random_forest_feature_select(X,y):
+
+def random_forest_feature_select(X, y):
     # Split the data into 20% test and 80% training
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=1)
 
@@ -95,6 +119,24 @@ def random_forest_feature_select(X,y):
     # create new dataset with important features & run new cross validation
     # accuracy score
     X_important_train = sel_feat.transform(X_train)
+
+    result = (cross_val_score(RandomForestClassifier(n_estimators=1000, random_state=1, n_jobs=-1), X_important_train,
+                              y_train, cv=10))
+    output.write('Classification accuracy after features selection (10 fold): \n')
+    output.write(str(result) + '\n')
+    output.write('average accuracy score: \n')
+    avg = sum(result) / len(result)
+    output.write(str(avg) + '\n')
+
+    # AUC score
+    result = (cross_val_score(RandomForestClassifier(n_estimators=1000, random_state=1, n_jobs=-1), X_important_train,
+                              y_train, scoring='roc_auc', cv=10))
+    output.write('AUC after feature selection (10 fold): \n')
+    output.write(str(result) + '\n')
+    output.write('Average AUC score: \n')
+    avg = sum(result) / len(result)
+    output.write(str(avg) + '\n')
+
     result = (cross_val_score(RandomForestClassifier(n_estimators=1000,random_state=1, n_jobs=-1),X_important_train,y_train, cv=10))
     output.write('Classification accuracy after features selection (10 fold): \n')
     output.write(str(result) + '\n')
@@ -132,10 +174,44 @@ def elastic_net(X,y):
     score = r2_score(y_test, y_pred)
     output.write('R^2 score: ' + str(score) + '\n')
 
-def SVR(X,y):
+
+
+def elastic_net(X, y):
+    # Split the data into 20% test and 80% training
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=1)
+
+    result = ElasticNetCV(l1_ratio=[.05, 0.1, .2, .5, .75, .9, .95, .99, 1], n_jobs=9)
+    result.fit(X_train, y_train)
+
+    output.write('Elastic net results: \n')
+    # return best alpha and best L1
+    output.write('Best alpha value: ')
+    output.write(str(result.alpha_) + '\n')
+    output.write('Best l1-ratio: ')
+    output.write(str(result.l1_ratio_) + '\n')
+
+    # predict results
+    y_pred = result.predict(X_test)
+
+    # find R^2 - compare predictions to actual values
+    score = r2_score(y_test, y_pred)
+    output.write('R^2 score: ' + str(score) + '\n')
+
+
+def SVR(X, y):
     clf = svm.SVC(C=1, random_state=10)
-    scores = cross_val_score(clf, X, y, cv=5)
-    print(scores)
+    scores = cross_val_score(clf, X, y, cv=10)
+    output.write('SVR - 10 fold (accuracy scores): ' + '\n')
+    output.write(str(scores) + '\n')
+    avg = sum(scores) / len(scores)
+    output.write('Average accuracy score: \n' + str(avg) + '\n')
+
+
+    result = cross_val_score(clf, X, y, scoring='roc_auc', cv=10)
+    output.write('AUC scores (10 fold): \n')
+    output.write(str(result) + '\n')
+    avg = sum(result) / len(result)
+    output.write('average AUC score: \n' + str(avg) + '\n')
 
 ##KNN
 def knn(X,y):
@@ -194,6 +270,7 @@ def main():
     random_forest_feature_select(X_SUI,y_SUI)
     output.write('\n')
 
+
     output.write('\n----------------UTI----------------\n')
     elastic_net(X_UTI, y_UTI)
     output.write('\n----------------OAB----------------\n')
@@ -203,8 +280,141 @@ def main():
     output.write('\n----------------SUI----------------\n')
     elastic_net(X_SUI, y_SUI)
 
-    print('accuracy scores of SVR:')
-    SVR(X_SUI,y_SUI)
+def logisticRegression(X, y):
+    scaler_2 = StandardScaler()
+    X_ss = scaler_2.fit_transform(X)
+    logreg = LogisticRegression(max_iter=99999999999, random_state=10, C=1)
+    scores = cross_val_score(logreg, X_ss, y, cv=10)
+    output.write('Logistic Regression - 10 fold (accuracy scores): ' + '\n')
+    output.write(str(scores) + '\n')
+    avg = sum(scores) / len(scores)
+    output.write('Average accuracy score: \n' + str(avg) + '\n')
+
+    result = cross_val_score(logreg, X_ss, y, scoring='roc_auc', cv=10)
+    output.write('AUC scores (10 fold): \n')
+    output.write(str(result) + '\n')
+    avg = sum(result) / len(result)
+    output.write('average AUC score: \n' + str(avg) + '\n')
+
+
+##KNN Classification using accuracy score
+def knn(X, y):
+    # 75 / 25 train test split
+    X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=0)
+
+    # feature Min-Max Scaling, if the features vary too much (they do) will mess up the model.
+    scaler = MinMaxScaler()
+    X_train_scaled = scaler.fit_transform(X_train)
+    # Make sure both training and test set are scaled
+    X_test_scaled = scaler.transform(X_test)
+    result = cross_val_score(KNeighborsClassifier(n_neighbors=15), X, y, cv=5)
+    print(result)
+
+
+if __name__ == '__main__':
+    print('accuracy scores of KNN:')
+
+
+##KNN
+def knn(X, y):
+    # Grid search code for fiding optimal number of neighbors
+    # taken from: https://www.ritchieng.com/machine-learning-efficiently-search-tuning-param/
+    # instantiate model
+    knn = KNeighborsClassifier(n_neighbors=5)
+    k_range = list(range(1, 31))
+    # create a parameter grid: map the parameter names to the values that should be searched
+    # simply a python dictionary
+    # key: parameter name
+    # value: list of values that should be searched for that parameter
+    # single key-value pair for param_grid
+    param_grid = dict(n_neighbors=k_range)
+    # instantiate the grid
+    grid = GridSearchCV(knn, param_grid, cv=10, scoring='accuracy')
+    grid.fit(X, y)
+    n = 0
+    # not the best way of doing this, extracting the value of the best params from the dict grid.best_params_
+    for key, value in grid.best_params_.items():
+        n = value
+    # Accuracy scores
+    result = cross_val_score(KNeighborsClassifier(n_neighbors=n), X, y, cv=10)
+    output.write('KNN accuracy after features selection (10 fold): \n')
+    output.write(str(result) + '\n')
+    output.write('average accuracy score: \n')
+    avg = sum(result) / len(result)
+    output.write(str(avg) + '\n')
+    # AUC
+    result = cross_val_score(KNeighborsClassifier(n_neighbors=n), X, y, scoring='roc_auc', cv=10)
+    output.write(' KNN AUC: \n')
+    output.write(str(result) + '\n')
+    output.write('Average AUC score: \n')
+    avg = sum(result) / len(result)
+    output.write(str(avg) + '\n')
+
+
+def main():
+    output.write('----------------UTI----------------\n')
+    random_forest_before_selection(X_UTI, y_UTI)
+    random_forest_feature_select(X_UTI, y_UTI)
+    output.write('\n')
+
+    output.write('\n----------------OAB----------------\n')
+    random_forest_before_selection(X_OAB, y_OAB)
+    random_forest_feature_select(X_OAB, y_OAB)
+    output.write('\n')
+
+    output.write('\n----------------UUI----------------\n')
+    random_forest_before_selection(X_UUI, y_UUI)
+    random_forest_feature_select(X_UUI, y_UUI)
+    output.write('\n')
+
+    output.write('\n----------------SUI----------------\n')
+    random_forest_before_selection(X_SUI, y_SUI)
+    random_forest_feature_select(X_SUI, y_SUI)
+    output.write('\n')
+
+    output.write('\n----------------UTI----------------\n')
+    elastic_net(X_UTI, y_UTI)
+    output.write('\n----------------OAB----------------\n')
+    elastic_net(X_OAB, y_OAB)
+    output.write('\n----------------UUI----------------\n')
+    elastic_net(X_UUI, y_UUI)
+    output.write('\n----------------SUI----------------\n')
+    elastic_net(X_SUI, y_SUI)
+
+    print('accuracy scores of KNN:')
+    output.write('\n----------------UTI----------------\n')
+    knn(X_UTI, y_UTI)
+    output.write('\n----------------OAB----------------\n')
+    knn(X_OAB, y_OAB)
+    output.write('\n----------------UUI----------------\n')
+    knn(X_UUI, y_UUI)
+    output.write('\n----------------SUI----------------\n')
+    knn(X_SUI, y_SUI)
+
+    output.write('\n----------------SUI----------------\n')
+    SVR(X_SUI, y_SUI)
+    output.write('\n----------------UTI----------------\n')
+    SVR(X_UTI, y_UTI)
+    output.write('\n----------------OAB----------------\n')
+    SVR(X_OAB, y_OAB)
+    output.write('\n----------------UUI----------------\n')
+    SVR(X_UUI, y_UUI)
+
+    output.write('\n----------------UUI----------------\n')
+    logisticRegression(X_UUI, y_UUI)
+    output.write('\n----------------UTI----------------\n')
+    logisticRegression(X_UTI, y_UTI)
+    output.write('\n----------------OAB----------------\n')
+    logisticRegression(X_OAB, y_OAB)
+    output.write('\n----------------SUI----------------\n')
+    logisticRegression(X_SUI, y_SUI)
+
+
+if __name__ == '__main__':
+    main()
+
+
+
     output.write('\n----------------UTI----------------\n')
     knn(X_UTI,y_UTI)
     output.write('\n----------------OAB----------------\n')
