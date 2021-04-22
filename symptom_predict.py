@@ -6,6 +6,7 @@ from sklearn.feature_selection import SelectFromModel
 from sklearn.model_selection import cross_val_score, train_test_split
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.preprocessing import MinMaxScaler
+from sklearn.linear_model import LogisticRegression
 
 df = pd.read_csv('transposedCo-occurenceDataWithOutcomes.csv')
 features = df.columns.drop(['PatientID','outcome']).values
@@ -85,10 +86,12 @@ if __name__ == '__main__':
 
 def SVR(X,y):
     clf = svm.SVC(C=1, random_state=10)
-    scores = cross_val_score(clf, X, y, cv=5)
+    scores = cross_val_score(clf, X, y, cv=10)
     print(scores)
-
-
+def logisticRegression(X,y):
+    logreg = LogisticRegression(max_iter=999999999, random_state=10)
+    cvs = cross_val_score(logreg, X, y, cv=10)
+    print(cvs)
 
 if __name__ == '__main__':
     print('accuracy scores of SVR for SUI:')
@@ -99,6 +102,14 @@ if __name__ == '__main__':
     SVR(X_OAB,y_OAB)
     print('accuracy scores of SVR for UUI:')
     SVR(X_UUI,y_UUI)
+    print('accuracy score of logistic regression for UUI')
+    logisticRegression(X_UUI, y_UUI)
+    print("accuracy score of logistic regression for UTI")
+    logisticRegression(X_UTI, y_UTI)
+    print('accuracy score of logistic regression for OAB')
+    logisticRegression(X_OAB, y_OAB)
+    print("accuracy score of logistic regression for SUI")
+    logisticRegression(X_SUI, y_SUI)
 
 ##KNN Classification using accuracy score
 def knn(X,y):
