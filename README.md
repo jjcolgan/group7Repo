@@ -11,3 +11,8 @@
 #### Navigate to folder containing repository & run
     cd group7Repo
     python3 symptom_predict.py
+    
+#### Weekly Milestones
+[
+![milestones](https://user-images.githubusercontent.com/62032266/114088498-b1b82700-987a-11eb-9eef-ebf824d695cc.PNG)
+](url)
