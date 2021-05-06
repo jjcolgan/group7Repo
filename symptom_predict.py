@@ -1,7 +1,7 @@
 # import required libraries
 import pandas as pd
 from matplotlib import pyplot
-from sklearn import svm
+from sklearn.svm import SVC
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.feature_selection import SelectFromModel
 from sklearn.metrics import r2_score
@@ -12,13 +12,14 @@ from sklearn.datasets import make_classification
 from sklearn.preprocessing import MinMaxScaler, StandardScaler
 from sklearn.linear_model import LogisticRegression
 
+
 from sklearn.linear_model import ElasticNetCV
 from sklearn.datasets import make_regression
 
 # create outfile
 output = open('outfile.txt', 'w')
 
-df = pd.read_csv('transposedCo-occurenceDataWithOutcomes.csv')
+df = pd.read_csv('new_dataset.csv')
 features = df.columns.drop(['PatientID', 'outcome']).values
 
 ''' create separate dataframes for control & each symptom 
@@ -57,12 +58,19 @@ def random_forest_before_selection(X, y):
     avg = sum(result) / len(result)
     output.write('Average accuracy score: \n' + str(avg) + '\n')
     output.write('AUC score: \n')
+    output.write("%0.2f accuracy rf beforewith a standard deviation of %0.2f" % (result.mean(), result.std()))
 
     # find AUC score
     result = cross_val_score(RandomForestClassifier(n_estimators=1000, random_state=1), X, y, scoring='roc_auc', cv=10)
     output.write(str(result) + '\n')
     avg = sum(result) / len(result)
     output.write('average AUC score: \n' + str(avg) + '\n')
+
+    result = cross_val_score(RandomForestClassifier(n_estimators=1000, random_state=1), X, y, scoring='r2', cv=10)
+    output.write('r2 scores (10 fold): \n')
+    output.write(str(result) + '\n')
+    avg = sum(result) / len(result)
+    output.write('average r2 score: \n' + str(avg) + '\n')
 
 
 ''' feature selection uses test_train_split instead of cross validation, since cross val
@@ -111,6 +119,7 @@ def random_forest_feature_select(X, y):
     output.write('average accuracy score: \n')
     avg = sum(result) / len(result)
     output.write(str(avg) + '\n')
+    output.write("%0.2f accuracy RF after with a standard deviation of %0.2f" % (result.mean(), result.std()))
 
     # AUC score
     result = (cross_val_score(RandomForestClassifier(n_estimators=1000, random_state=1, n_jobs=-1), X_important_train,
@@ -144,36 +153,56 @@ def elastic_net(X, y):
     output.write('R^2 score: ' + str(score) + '\n')
 
 
-def SVR(X, y):
-    clf = svm.SVC(C=1, random_state=10)
+def SVC(X, y):
+    #runs cross validation for SVC with 10 folds
+    clf = SVC(C=1, random_state=10)
     scores = cross_val_score(clf, X, y, cv=10)
-    output.write('SVR - 10 fold (accuracy scores): ' + '\n')
+    #outputs to file
+    output.write('SVC - 10 fold (accuracy scores): ' + '\n')
+    #outputs scores and average of scores
     output.write(str(scores) + '\n')
     avg = sum(scores) / len(scores)
     output.write('Average accuracy score: \n' + str(avg) + '\n')
-
+    output.write("%0.2f accuracy SVC with a standard deviation of %0.2f" % (scores.mean(), scores.std()))
+#finds AUC scores and outputs them in the outfile along with the average AUC score
     result = cross_val_score(clf, X, y, scoring='roc_auc', cv=10)
     output.write('AUC scores (10 fold): \n')
     output.write(str(result) + '\n')
     avg = sum(result) / len(result)
     output.write('average AUC score: \n' + str(avg) + '\n')
-
+#finds r2 score with the average and adds to the outfile
+    rscores = cross_val_score(clf, X, y, cv=10, scoring = 'r2')
+    output.write('r2 scores (10 fold): \n')
+    output.write(str(rscores) + '\n')
+    avg = sum(rscores) / len(rscores)
+    output.write('average r2 score: \n' + str(avg) + '\n')
 
 def logisticRegression(X, y):
+    #scales the models
     scaler_2 = StandardScaler()
     X_ss = scaler_2.fit_transform(X)
+    #runs the logistic regression model with cross validation of 10 folds
     logreg = LogisticRegression(max_iter=99999999999, random_state=10, C=1)
     scores = cross_val_score(logreg, X_ss, y, cv=10)
+    #output accuracy scores with averages to the outfile
     output.write('Logistic Regression - 10 fold (accuracy scores): ' + '\n')
     output.write(str(scores) + '\n')
+    print(scores)
     avg = sum(scores) / len(scores)
     output.write('Average accuracy score: \n' + str(avg) + '\n')
-
+    output.write("%0.2f accuracy with a standard deviation of %0.2f" % (scores.mean(), scores.std()))
+#finds the AUC score and the average and outputs it to outfile
     result = cross_val_score(logreg, X_ss, y, scoring='roc_auc', cv=10)
     output.write('AUC scores (10 fold): \n')
     output.write(str(result) + '\n')
     avg = sum(result) / len(result)
     output.write('average AUC score: \n' + str(avg) + '\n')
+#finds the r2 score and average and adds it to the outfile
+    result = cross_val_score(logreg, X_ss, y, scoring='roc_auc', cv=10)
+    output.write('r2 scores (10 fold): \n')
+    output.write(str(result) + '\n')
+    avg = sum(result) / len(result)
+    output.write('average r2 score: \n' + str(avg) + '\n')
 
 
 ##KNN Classification using accuracy score
@@ -188,6 +217,7 @@ def knn(X, y):
     X_test_scaled = scaler.transform(X_test)
     result = cross_val_score(KNeighborsClassifier(n_neighbors=15), X, y, cv=5)
     print(result)
+
 
 
 if __name__ == '__main__':
@@ -221,6 +251,7 @@ def knn(X, y):
     output.write('average accuracy score: \n')
     avg = sum(result) / len(result)
     output.write(str(avg) + '\n')
+    output.write("%0.2f accuracy KNN with a standard deviation of %0.2f" % (result.mean(), result.std()))
     # AUC
     result = cross_val_score(KNeighborsClassifier(n_neighbors=n), X, y, scoring='roc_auc', cv=10)
     output.write(' KNN AUC: \n')
@@ -229,26 +260,33 @@ def knn(X, y):
     avg = sum(result) / len(result)
     output.write(str(avg) + '\n')
 
+    result = cross_val_score(KNeighborsClassifier(n_neighbors=n), X, y, scoring='r2', cv=10)
+    output.write('r2 scores (10 fold): \n')
+    output.write(str(result) + '\n')
+    avg = sum(result) / len(result)
+    output.write('average r2 score: \n' + str(avg) + '\n')
+
 
 def main():
+
     output.write('----------------UTI----------------\n')
     random_forest_before_selection(X_UTI, y_UTI)
-    random_forest_feature_select(X_UTI, y_UTI)
+  #  random_forest_feature_select(X_UTI, y_UTI)
     output.write('\n')
 
     output.write('\n----------------OAB----------------\n')
     random_forest_before_selection(X_OAB, y_OAB)
-    random_forest_feature_select(X_OAB, y_OAB)
+   # random_forest_feature_select(X_OAB, y_OAB)
     output.write('\n')
 
     output.write('\n----------------UUI----------------\n')
     random_forest_before_selection(X_UUI, y_UUI)
-    random_forest_feature_select(X_UUI, y_UUI)
+   # random_forest_feature_select(X_UUI, y_UUI)
     output.write('\n')
 
     output.write('\n----------------SUI----------------\n')
     random_forest_before_selection(X_SUI, y_SUI)
-    random_forest_feature_select(X_SUI, y_SUI)
+    #random_forest_feature_select(X_SUI, y_SUI)
     output.write('\n')
 
     output.write('\n----------------UTI----------------\n')
@@ -271,13 +309,13 @@ def main():
     knn(X_SUI, y_SUI)
 
     output.write('\n----------------SUI----------------\n')
-    SVR(X_SUI, y_SUI)
+    SVC(X_SUI, y_SUI)
     output.write('\n----------------UTI----------------\n')
-    SVR(X_UTI, y_UTI)
+    SVC(X_UTI, y_UTI)
     output.write('\n----------------OAB----------------\n')
-    SVR(X_OAB, y_OAB)
+    SVC(X_OAB, y_OAB)
     output.write('\n----------------UUI----------------\n')
-    SVR(X_UUI, y_UUI)
+    SVC(X_UUI, y_UUI)
 
     output.write('\n----------------UUI----------------\n')
     logisticRegression(X_UUI, y_UUI)
