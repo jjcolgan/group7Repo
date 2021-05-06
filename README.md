@@ -2,7 +2,7 @@
 ## Installation
     pip install pandas
     pip install sklearn
-    pip install hyperopt
+    pip install statistics
     pip install hpsklearn
 
 #### To run symptom_predict.py, clone this repository:
