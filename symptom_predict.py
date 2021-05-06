@@ -153,8 +153,8 @@ def elastic_net(X, y):
     output.write('R^2 score: ' + str(score) + '\n')
 
 
-def SVC(X, y):
-    #runs cross validation for SVC with 10 folds
+def SVC1(X, y):
+     #runs cross validation for SVC with 10 folds
     clf = SVC(C=1, random_state=10)
     scores = cross_val_score(clf, X, y, cv=10)
     #outputs to file
@@ -178,7 +178,7 @@ def SVC(X, y):
     output.write('average r2 score: \n' + str(avg) + '\n')
 
 def logisticRegression(X, y):
-    #scales the models
+     #scales the models
     scaler_2 = StandardScaler()
     X_ss = scaler_2.fit_transform(X)
     #runs the logistic regression model with cross validation of 10 folds
@@ -298,7 +298,7 @@ def main():
     output.write('\n----------------SUI----------------\n')
     elastic_net(X_SUI, y_SUI)
 
-    print('accuracy scores of KNN:')
+
     output.write('\n----------------UTI----------------\n')
     knn(X_UTI, y_UTI)
     output.write('\n----------------OAB----------------\n')
@@ -309,13 +309,13 @@ def main():
     knn(X_SUI, y_SUI)
 
     output.write('\n----------------SUI----------------\n')
-    SVC(X_SUI, y_SUI)
+    SVC1(X_SUI, y_SUI)
     output.write('\n----------------UTI----------------\n')
-    SVC(X_UTI, y_UTI)
+    SVC1(X_UTI, y_UTI)
     output.write('\n----------------OAB----------------\n')
-    SVC(X_OAB, y_OAB)
+    SVC1(X_OAB, y_OAB)
     output.write('\n----------------UUI----------------\n')
-    SVC(X_UUI, y_UUI)
+    SVC1(X_UUI, y_UUI)
 
     output.write('\n----------------UUI----------------\n')
     logisticRegression(X_UUI, y_UUI)
