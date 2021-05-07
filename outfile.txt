@@ -14,7 +14,8 @@ average AUC score:
 AUC score standard deviation: 
 0.08637588672924895
 R2 score 
-0.10445421168807867Top 10 most important features: 
+0.10445421168807867
+Top 10 most important features: 
 ('Aerococcusurinae', 0.02732494961064375)
 ('Enterococcusfaecalis', 0.04036408523117535)
 ('Escherichiacoli', 0.3355309582798127)
@@ -43,7 +44,8 @@ average AUC score:
 AUC score standard deviation: 
 0.19029613771024062
 R2 score 
-0.11847914377350166Top 10 most important features: 
+0.11847914377350166
+Top 10 most important features: 
 ('Aerococcusurinae', 0.04200954599510876)
 ('Enterococcusfaecalis', 0.05232998154681498)
 ('Escherichiacoli', 0.04431534363706104)
@@ -71,7 +73,8 @@ average AUC score:
 AUC score standard deviation: 
 0.15761337287375704
 R2 score 
--0.13139002196207006Top 10 most important features: 
+-0.13139002196207006
+Top 10 most important features: 
 ('Corynebacteriumcoyleae', 0.04357535595702679)
 ('Corynebacteriumlipophilegroup', 0.03604587556790252)
 ('Escherichiacoli', 0.04918497578686265)
@@ -99,7 +102,8 @@ average AUC score:
 AUC score standard deviation: 
 0.14036284549360534
 R2 score 
-0.08326147258466132Top 10 most important features: 
+0.08326147258466132
+Top 10 most important features: 
 ('Aerococcusurinae', 0.046711215609092235)
 ('Corynebacteriumcoyleae', 0.030892653842054155)
 ('Escherichiacoli', 0.03912693687853835)
@@ -114,28 +118,23 @@ R2 score
 
 ----------------UTI----------------
 Elastic net results: 
-R^2 score: 0.2124543499535262
+R^2 score: 
+0.2124543499535262
 
 ----------------OAB----------------
 Elastic net results: 
-R^2 score: -15.748489048844622
+R^2 score: 
+-15.748489048844622
 
 ----------------UUI----------------
 Elastic net results: 
-R^2 score: -5.967836043956887
+R^2 score: 
+-5.967836043956887
 
 ----------------SUI----------------
 Elastic net results: 
-R^2 score: -43.145269003127616
-SVR - 10 fold (accuracy scores): 
-[0.75 0.75 0.75 0.75 0.75 0.75 0.75 0.75 0.75 0.8 ]
-Average accuracy score: 
-0.755
-AUC scores (10 fold): 
-[0.66666667 0.38666667 0.53333333 0.6        0.4        0.43333333
- 0.37333333 0.72       0.10666667 0.66666667]
-average AUC score: 
-0.48866666666666675
+R^2 score: 
+-43.145269003127616
 
 ----------------UTI----------------
 KNN accuracy after features selection (10 fold): 
@@ -143,11 +142,22 @@ KNN accuracy after features selection (10 fold):
  0.90909091 0.95454545 0.86363636 0.77272727]
 average accuracy score: 
 0.8450592885375494
+Accuracy score standard deviation: 
+0.06556712761835204
  KNN AUC: 
 [0.825      0.74583333 0.875      0.9375     0.6125     0.81904762
  0.85714286 0.92857143 0.85238095 0.80952381]
 Average AUC score: 
 0.8262500000000002
+AUC score standard deviation: 
+0.09389657434094964
+r2 scores (10 fold): 
+[ 0.23333333 -0.15        0.425       0.425       0.04166667  0.37142857
+  0.58095238  0.79047619  0.37142857 -0.04761905]
+average r2 score: 
+0.30416666666666664
+R^2 score standard deviation: 
+0.2896935473011897
 
 ----------------OAB----------------
 KNN accuracy after features selection (10 fold): 
@@ -155,30 +165,243 @@ KNN accuracy after features selection (10 fold):
  0.71428571 0.71428571 0.80952381 0.9       ]
 average accuracy score: 
 0.7614285714285715
+Accuracy score standard deviation: 
+0.07679817174694636
  KNN AUC: 
 [0.67222222 0.58888889 0.86666667 0.5        0.76111111 0.8
  0.55       0.6        0.67222222 0.81333333]
 Average AUC score: 
 0.6824444444444444
+AUC score standard deviation: 
+0.12367686557391931
+r2 scores (10 fold): 
+[-0.63333333 -0.63333333  0.3        -0.16666667 -0.16666667 -0.16666667
+ -0.4        -0.4         0.06666667  0.46666667]
+average r2 score: 
+-0.17333333333333334
+R^2 score standard deviation: 
+0.36777609935837224
 
 ----------------UUI----------------
 KNN accuracy after features selection (10 fold): 
 [0.75 0.75 0.8  0.75 0.8  0.75 0.75 0.8  0.8  0.65]
 average accuracy score: 
 0.76
+Accuracy score standard deviation: 
+0.04594682917363409
  KNN AUC: 
 [0.60666667 0.66666667 0.98       0.59333333 0.63333333 0.6
  0.66       0.76666667 0.69333333 0.24      ]
 Average AUC score: 
 0.644
+AUC score standard deviation: 
+0.18268775222990405
+r2 scores (10 fold): 
+[-0.33333333 -0.33333333 -0.06666667 -0.33333333 -0.06666667 -0.33333333
+ -0.33333333 -0.06666667 -0.06666667 -0.86666667]
+average r2 score: 
+-0.27999999999999997
+R^2 score standard deviation: 
+0.24504975559271505
 
 ----------------SUI----------------
 KNN accuracy after features selection (10 fold): 
 [0.7  0.8  0.75 0.7  0.7  0.8  0.8  0.8  0.75 0.75]
 average accuracy score: 
 0.755
+Accuracy score standard deviation: 
+0.0437797517885457
  KNN AUC: 
 [0.71333333 0.51333333 0.58666667 0.52       0.73333333 0.70666667
  0.76       0.74       0.73333333 0.66666667]
 Average AUC score: 
 0.6673333333333333
+AUC score standard deviation: 
+0.09319831503801951
+r2 scores (10 fold): 
+[-0.6        -0.06666667 -0.33333333 -0.6        -0.6        -0.06666667
+ -0.06666667 -0.06666667 -0.33333333 -0.33333333]
+average r2 score: 
+-0.30666666666666653
+R^2 score standard deviation: 
+0.2334920095389102
+
+----------------UTI----------------
+SVC - 10 fold (accuracy scores): 
+[0.91304348 0.69565217 0.86956522 0.82608696 0.82608696 0.86363636
+ 1.         0.95454545 0.86363636 0.81818182]
+Average accuracy score: 
+0.8630434782608696
+Accuracy score standard deviation: 
+0.08329127133987396
+AUC scores (10 fold): 
+[0.825      0.675      0.775      0.73333333 0.86666667 0.99047619
+ 1.         0.92380952 0.95238095 0.87142857]
+average AUC score: 
+0.8613095238095239
+AUC score standard deviation: 
+0.10959890742586953
+r2 scores (10 fold): 
+[ 0.61666667 -0.34166667  0.425       0.23333333  0.23333333  0.37142857
+  1.          0.79047619  0.37142857  0.16190476]
+average r2 score: 
+0.38619047619047614
+R^2 score standard deviation: 
+0.3684925848431745
+
+----------------OAB----------------
+SVC - 10 fold (accuracy scores): 
+[0.71428571 0.71428571 0.71428571 0.71428571 0.71428571 0.71428571
+ 0.71428571 0.71428571 0.71428571 0.75      ]
+Average accuracy score: 
+0.7178571428571429
+Accuracy score standard deviation: 
+0.011293848786315635
+AUC scores (10 fold): 
+[0.8        0.57222222 0.91666667 0.61111111 0.60555556 0.84444444
+ 0.43888889 0.48888889 0.52222222 0.82      ]
+average AUC score: 
+0.662
+AUC score standard deviation: 
+0.1684137240301424
+r2 scores (10 fold): 
+[-0.4        -0.4        -0.4        -0.4        -0.4        -0.4
+ -0.4        -0.4        -0.4        -0.33333333]
+average r2 score: 
+-0.39333333333333353
+R^2 score standard deviation: 
+0.021081851067789262
+
+----------------UUI----------------
+SVC - 10 fold (accuracy scores): 
+[0.75 0.75 0.75 0.75 0.75 0.75 0.75 0.75 0.75 0.75]
+Average accuracy score: 
+0.75
+Accuracy score standard deviation: 
+0.0
+AUC scores (10 fold): 
+[0.24       0.62666667 0.62666667 0.33333333 0.62       0.48
+ 0.31333333 0.36       0.6        0.47333333]
+average AUC score: 
+0.4673333333333334
+AUC score standard deviation: 
+0.14785545160020727
+r2 scores (10 fold): 
+[-0.33333333 -0.33333333 -0.33333333 -0.33333333 -0.33333333 -0.33333333
+ -0.33333333 -0.33333333 -0.33333333 -0.33333333]
+average r2 score: 
+-0.3333333333333332
+R^2 score standard deviation: 
+0.0
+
+----------------SUI----------------
+SVC - 10 fold (accuracy scores): 
+[0.75 0.75 0.75 0.75 0.75 0.75 0.75 0.75 0.75 0.8 ]
+Average accuracy score: 
+0.755
+Accuracy score standard deviation: 
+0.015811388300841913
+AUC scores (10 fold): 
+[0.66666667 0.38666667 0.53333333 0.6        0.4        0.43333333
+ 0.37333333 0.72       0.10666667 0.66666667]
+average AUC score: 
+0.48866666666666675
+AUC score standard deviation: 
+0.18613814065743597
+r2 scores (10 fold): 
+[-0.33333333 -0.33333333 -0.33333333 -0.33333333 -0.33333333 -0.33333333
+ -0.33333333 -0.33333333 -0.33333333 -0.06666667]
+average r2 score: 
+-0.30666666666666653
+R^2 score standard deviation: 
+0.08432740427115676
+
+----------------UTI----------------
+Logistic Regression - 10 fold (accuracy scores): 
+[0.82608696 0.73913043 0.91304348 0.82608696 0.65217391 0.72727273
+ 0.90909091 0.77272727 0.86363636 0.81818182]
+Average accuracy score: 
+0.8047430830039526
+Accuracy score standard deviation: 
+0.08285638428834041
+AUC scores (10 fold): 
+[0.775      0.71666667 0.94166667 0.83333333 0.625      0.8952381
+ 0.85714286 0.79047619 0.67619048 0.8047619 ]
+average AUC score: 
+0.791547619047619
+AUC standard deviation: 
+0.09800133238331002
+r2 scores (10 fold): 
+[0.775      0.71666667 0.94166667 0.83333333 0.625      0.8952381
+ 0.85714286 0.79047619 0.67619048 0.8047619 ]
+average r2 score: 
+0.791547619047619
+R^2 score standard deviation: 
+0.09800133238331002
+
+----------------OAB----------------
+Logistic Regression - 10 fold (accuracy scores): 
+[0.52380952 0.71428571 0.9047619  0.80952381 0.61904762 0.85714286
+ 0.76190476 0.76190476 0.76190476 0.9       ]
+Average accuracy score: 
+0.7614285714285715
+Accuracy score standard deviation: 
+0.120267820727092
+AUC scores (10 fold): 
+[0.41111111 0.45       0.77222222 0.65555556 0.51666667 0.77777778
+ 0.53888889 0.53333333 0.67777778 0.92666667]
+average AUC score: 
+0.626
+AUC standard deviation: 
+0.16453801141877855
+r2 scores (10 fold): 
+[0.41111111 0.45       0.77222222 0.65555556 0.51666667 0.77777778
+ 0.53888889 0.53333333 0.67777778 0.92666667]
+average r2 score: 
+0.626
+R^2 score standard deviation: 
+0.16453801141877855
+
+----------------UUI----------------
+Logistic Regression - 10 fold (accuracy scores): 
+[0.7  0.75 0.75 0.85 0.7  0.75 0.75 0.75 0.7  0.75]
+Average accuracy score: 
+0.745
+Accuracy score standard deviation: 
+0.043779751788545665
+AUC scores (10 fold): 
+[0.62666667 0.54666667 0.21333333 0.72       0.52666667 0.6
+ 0.59333333 0.72       0.44       0.46      ]
+average AUC score: 
+0.5446666666666667
+AUC standard deviation: 
+0.149766897066041
+r2 scores (10 fold): 
+[0.62666667 0.54666667 0.21333333 0.72       0.52666667 0.6
+ 0.59333333 0.72       0.44       0.46      ]
+average r2 score: 
+0.5446666666666667
+R^2 score standard deviation: 
+0.149766897066041
+
+----------------SUI----------------
+Logistic Regression - 10 fold (accuracy scores): 
+[0.8  0.7  0.8  0.75 0.65 0.9  0.75 0.8  0.75 0.75]
+Average accuracy score: 
+0.7649999999999999
+Accuracy score standard deviation: 
+0.06687467549246294
+AUC scores (10 fold): 
+[0.6        0.53333333 0.64       0.64       0.53333333 0.91333333
+ 0.28       0.45333333 0.57333333 0.36      ]
+average AUC score: 
+0.5526666666666668
+AUC standard deviation: 
+0.17323216420760146
+r2 scores (10 fold): 
+[0.6        0.53333333 0.64       0.64       0.53333333 0.91333333
+ 0.28       0.45333333 0.57333333 0.36      ]
+average r2 score: 
+0.5526666666666668
+R^2 score standard deviation: 
+0.17323216420760146

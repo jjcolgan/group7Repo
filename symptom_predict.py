@@ -2,6 +2,8 @@
 import pandas as pd
 from networkx.drawing.tests.test_pylab import plt
 from sklearn import svm
+from matplotlib import pyplot
+from sklearn.svm import SVC
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.feature_selection import SelectFromModel
 from sklearn.metrics import r2_score
@@ -78,7 +80,7 @@ def random_forest_before_selection(X,y):
     # score = regr.score(y_test,y_pred)
     score = r2_score(y_test,y_pred)
     output.write('R2 score \n')
-    output.write(str(score))
+    output.write(str(score) + '\n')
 
 
 ''' feature selection uses test_train_split instead of cross validation, since cross val
@@ -137,37 +139,71 @@ def elastic_net(X,y):
     score = r2_score(y_test, y_pred)
     output.write('R^2 score: \n' + str(score) + '\n')
 
-def SVC(X,y):
-    # accuracy
-    clf = svm.SVC(C=1, random_state=10)
+def SVC1(X, y):
+    # runs cross validation for SVC with 10 folds
+    clf = SVC(C=1, random_state=10)
     scores = cross_val_score(clf, X, y, cv=10)
-    output.write('SVR - 10 fold (accuracy scores): ' + '\n')
+    # outputs to file
+    output.write('SVC - 10 fold (accuracy scores): ' + '\n')
+    # outputs scores and average of scores
     output.write(str(scores) + '\n')
     avg = sum(scores) / len(scores)
     output.write('Average accuracy score: \n' + str(avg) + '\n')
+    sdev = stdev(scores)
+    output.write('Accuracy score standard deviation: \n' + str(sdev) + '\n')
 
-    # AUC
+    # finds AUC scores and outputs them in the outfile along with the average AUC score
     result = cross_val_score(clf, X, y, scoring='roc_auc', cv=10)
     output.write('AUC scores (10 fold): \n')
     output.write(str(result) + '\n')
     avg = sum(result) / len(result)
     output.write('average AUC score: \n' + str(avg) + '\n')
+    sdev = stdev(result)
+    output.write('AUC score standard deviation: \n' + str(sdev) + '\n')
+
+    # finds r2 score with the average and adds to the outfile
+    rscores = cross_val_score(clf, X, y, cv=10, scoring='r2')
+    output.write('r2 scores (10 fold): \n')
+    output.write(str(rscores) + '\n')
+    avg = sum(rscores) / len(rscores)
+    output.write('average r2 score: \n' + str(avg) + '\n')
+    sdev = stdev(rscores)
+    output.write('R^2 score standard deviation: \n' + str(sdev) + '\n')
 
 def logisticRegression(X, y):
+    # accuracy score
+    # scales the models
     scaler_2 = StandardScaler()
     X_ss = scaler_2.fit_transform(X)
+    # runs the logistic regression model with cross validation of 10 folds
     logreg = LogisticRegression(max_iter=99999999999, random_state=10, C=1)
     scores = cross_val_score(logreg, X_ss, y, cv=10)
+    # output accuracy scores with averages to the outfile
     output.write('Logistic Regression - 10 fold (accuracy scores): ' + '\n')
     output.write(str(scores) + '\n')
     avg = sum(scores) / len(scores)
     output.write('Average accuracy score: \n' + str(avg) + '\n')
+    sdev = stdev(scores)
+    output.write('Accuracy score standard deviation: \n' + str(sdev) + '\n')
 
+    # finds the AUC score and the average and outputs it to outfile
     result = cross_val_score(logreg, X_ss, y, scoring='roc_auc', cv=10)
     output.write('AUC scores (10 fold): \n')
     output.write(str(result) + '\n')
     avg = sum(result) / len(result)
     output.write('average AUC score: \n' + str(avg) + '\n')
+    sdev = stdev(result)
+    output.write('AUC standard deviation: \n' + str(sdev) + '\n')
+
+
+    # finds the r2 score and average and adds it to the outfile
+    result = cross_val_score(logreg, X_ss, y, scoring='roc_auc', cv=10)
+    output.write('r2 scores (10 fold): \n')
+    output.write(str(result) + '\n')
+    avg = sum(result) / len(result)
+    output.write('average r2 score: \n' + str(avg) + '\n')
+    sdev = stdev(result)
+    output.write('R^2 score standard deviation: \n' + str(sdev) + '\n')
 
 ##KNN
 def knn(X,y):
@@ -196,14 +232,27 @@ def knn(X,y):
     output.write('average accuracy score: \n')
     avg = sum(result)/len(result)
     output.write(str(avg) + '\n')
+    sdev = stdev(result)
+    output.write('Accuracy score standard deviation: \n' + str(sdev) + '\n')
 
-#AUC 
+#AUC
     result = cross_val_score(KNeighborsClassifier(n_neighbors = n),X,y, cv=10,scoring='roc_auc')
     output.write(' KNN AUC: \n')
     output.write(str(result) + '\n')
     output.write('Average AUC score: \n')
     avg = sum(result) / len(result)
     output.write(str(avg) + '\n')
+    sdev = stdev(result)
+    output.write('AUC score standard deviation: \n' + str(sdev) + '\n')
+
+    # r2
+    result = cross_val_score(KNeighborsClassifier(n_neighbors=n), X, y, scoring='r2', cv=10)
+    output.write('r2 scores (10 fold): \n')
+    output.write(str(result) + '\n')
+    avg = sum(result) / len(result)
+    output.write('average r2 score: \n' + str(avg) + '\n')
+    sdev = stdev(result)
+    output.write('R^2 score standard deviation: \n' + str(sdev) + '\n')
 
 
 # Box plots
@@ -272,22 +321,33 @@ def main():
     output.write('\n----------------SUI----------------\n')
     elastic_net(X_SUI, y_SUI)
 
-    print('accuracy scores of SVR:')
-    SVC(X_SUI,y_SUI)
-
     output.write('\n----------------UTI----------------\n')
-    knn(X_UTI,y_UTI)
+    knn(X_UTI, y_UTI)
     output.write('\n----------------OAB----------------\n')
-    knn(X_OAB,y_OAB)
+    knn(X_OAB, y_OAB)
     output.write('\n----------------UUI----------------\n')
-    knn(X_UUI,y_UUI)
-
+    knn(X_UUI, y_UUI)
     output.write('\n----------------SUI----------------\n')
     knn(X_SUI, y_SUI)
 
+    output.write('\n----------------UTI----------------\n')
+    SVC1(X_UTI, y_UTI)
+    output.write('\n----------------OAB----------------\n')
+    SVC1(X_OAB, y_OAB)
+    output.write('\n----------------UUI----------------\n')
+    SVC1(X_UUI, y_UUI)
+    output.write('\n----------------SUI----------------\n')
+    SVC1(X_SUI, y_SUI)
+
+    output.write('\n----------------UTI----------------\n')
+    logisticRegression(X_UTI, y_UTI)
+    output.write('\n----------------OAB----------------\n')
+    logisticRegression(X_OAB, y_OAB)
+    output.write('\n----------------UUI----------------\n')
+    logisticRegression(X_UUI, y_UUI)
+    output.write('\n----------------SUI----------------\n')
+    logisticRegression(X_SUI, y_SUI)
 
 
 if __name__ == '__main__':
     main()
-
-
