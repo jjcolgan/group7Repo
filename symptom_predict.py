@@ -1,7 +1,6 @@
 # import required libraries
 import pandas as pd
-from networkx.drawing.tests.test_pylab import plt
-from matplotlib import pyplot
+# from networkx.drawing.tests.test_pylab import plt
 from sklearn.svm import SVC
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.feature_selection import SelectFromModel

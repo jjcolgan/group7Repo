@@ -5,6 +5,7 @@
     pip install statistics
     pip install hpsklearn
     pip install matplotlib
+    pip install networkx
 
 #### To run symptom_predict.py, clone this repository:
     https://github.com/jjcolgan/group7Repo.git
