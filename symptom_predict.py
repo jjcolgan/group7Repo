@@ -1,7 +1,6 @@
 # import required libraries
 import pandas as pd
 from networkx.drawing.tests.test_pylab import plt
-from sklearn import svm
 from matplotlib import pyplot
 from sklearn.svm import SVC
 from sklearn.ensemble import RandomForestClassifier
@@ -255,7 +254,7 @@ def knn(X,y):
     output.write('R^2 score standard deviation: \n' + str(sdev) + '\n')
 
 
-# Box plots
+# ex box plot - this should be run for every symptom/ML model
 def box_plot(X,y,result):
     # accuracy boxplot
     data_to_plot = [result]
@@ -289,7 +288,7 @@ def box_plot(X,y,result):
     for flier in bp['fliers']:
         flier.set(marker='o', color='#e7298a', alpha=0.5)
     # Save the figure
-    fig.savefig('uui_random_forest.png', bbox_inches='tight')
+    fig.savefig('uti_random_forest.png', bbox_inches='tight')
 
 def main():
     output.write('----------------UTI----------------\n')
